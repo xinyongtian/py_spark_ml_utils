@@ -1,17 +1,3 @@
-# Table of Contents
-- [Prepare example data and model](#prepare-example-data-and-model)
-      - [example data](#example-data)
-      - [pipeline](#pipeline)
-      - [create PipelineModel](#create-pipelinemodel)
-      - [apply the model](#apply-the-model)
-- [pipeline_util](#pipeline-util)
-    + [getStages():  check Pipeline and PipelineModel](#getstages-----check-pipeline-and-pipelinemodel)
-      - [usage](#usage)
-    + [get_code(): get the code showing how it is created](#get-code----get-the-code-showing-how-it-is-created)
-    + [Other function](#other-function)
-      - [flatenStages()](#flatenstages--)
-      - [pm_to_p()](#pm-to-p--)
-
 ```python
 
 ```
@@ -219,7 +205,7 @@ pu.getallstages(pipeline,'pipeline')
 ```
 
     This is a Pipeline 
-
+    
 
 
 
@@ -303,7 +289,7 @@ pu.getallstages(model,'model')
 ```
 
     This is a PipelineModel 
-
+    
 
 
 
@@ -472,7 +458,7 @@ pstr=pu.get_code(pipeline,'pipeline2') #pstr is a string , same as the following
     ,########################################stage4
     LogisticRegression(maxIter=5,regParam=0.001)
     ])
-
+    
 
 
 ```python
@@ -487,7 +473,7 @@ pu.getallstages(pipeline2,'pipeline2')
 ```
 
     This is a Pipeline 
-
+    
 
 
 
@@ -594,7 +580,7 @@ _=pu.get_code(model,'pipeline3')
     ,########################################stage4
     LogisticRegression(maxIter=5,regParam=0.001)
     ])
-
+    
 
 
 ```python
@@ -605,7 +591,7 @@ _=pu.get_code(pipeline.getStages()[2],'obj')
     from pyspark.ml.feature import RFormula
     
     obj=RFormula(featuresCol="features",handleInvalid="keep",formula="~category_fillNA+text_vector")
-
+    
 
 
 ```python
@@ -615,7 +601,7 @@ _=pu.get_code(model.stages[1].stages[1],'obj')
     from pyspark.ml.feature import HashingTF
     
     obj=HashingTF(numFeatures=16,outputCol="text_vector",inputCol="words")
-
+    
 
 ### Other function
 
@@ -666,7 +652,7 @@ pu.getallstages(pipeline4,'pipeline4')
 ```
 
     This is a Pipeline 
-
+    
 
 
 
@@ -757,10 +743,10 @@ bad_method()
 ```
 
     None
-
+    
 
     Traceback (most recent call last):
       File "<ipython-input-1-830d9875d0cc>", line 4, in bad_method
         sqrt = 0**-1
     ZeroDivisionError: 0.0 cannot be raised to a negative power
-
+    
