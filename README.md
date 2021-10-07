@@ -1,3 +1,17 @@
+# Table of Contents
+- [Prepare example data and model](#prepare-example-data-and-model)
+      - [example data](#example-data)
+      - [pipeline](#pipeline)
+      - [create PipelineModel](#create-pipelinemodel)
+      - [apply the model](#apply-the-model)
+- [pipeline_util](#pipeline-util)
+    + [getStages():  check Pipeline and PipelineModel](#getstages-----check-pipeline-and-pipelinemodel)
+      - [usage](#usage)
+    + [get_code(): get the code showing how it is created](#get-code----get-the-code-showing-how-it-is-created)
+    + [Other function](#other-function)
+      - [flatenStages()](#flatenstages--)
+      - [pm_to_p()](#pm-to-p--)
+
 ```python
 
 ```
