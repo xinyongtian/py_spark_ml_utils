@@ -1,3 +1,4 @@
+<h1 id="tocheading">Table of Contents</h1>
 - [Prepare example data and model](#prepare-example-data-and-model)
       - [example data](#example-data)
       - [pipeline](#pipeline)
@@ -11,23 +12,6 @@
       - [flatenStages()](#flatenstages--)
       - [pm_to_p()](#pm-to-p--)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-
-
-
-
-<h1 id="tocheading">Table of Contents</h1>
-<div id="toc"></div>
-
-
-```javascript
-%%javascript
-$.getScript('https://kmahelona.github.io/ipython_notebook_goodies/ipython_notebook_toc.js')
-```
-
-
-    <IPython.core.display.Javascript object>
 
 
 
