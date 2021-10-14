@@ -13,6 +13,6 @@ Some spark ml utilities, including easy checking/modifying spark pipeline, extra
 
 
     
-## Demo
+## How to use
 
 [see demo here](https://github.com/xinyongtian/py_spark_ml_utils/blob/main/demo.ipynb)
