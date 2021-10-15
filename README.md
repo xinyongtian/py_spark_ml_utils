@@ -1,6 +1,6 @@
 # spark_ml_utils
 
-Some spark ml utilities, including easy checking/modifying spark pipeline, extracting feature importance for spark logistic regression model.
+Some spark ml utilities, for easy checking/modifying spark pipeline, extracting feature importance for spark logistic regression model.
 
 
 

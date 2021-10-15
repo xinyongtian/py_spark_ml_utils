@@ -27,16 +27,12 @@ def extract_feature_name(dataframe,featuresVector,stat=False):
         df['mean']=smodel.mean.toArray()
         df['std']=smodel.std.toArray()
     return df
-#2021_04_28 nonzero_only=True
-#2021_07_23 add 'mean' to feature_importance
-#2021_10_05 add var_importanc
 def feature_importance(lrm_model,trainDF,trainFeatures,nonzero_only=True):
     """
     lrm_model:an instance of pyspark.ml.classification.LogisticRegressionModel  
     trainDF: spark DataFrame, including the training features column
     trainFeatures: a string, training features name
     nonzero_only: boolean, if True, only return variable with non zero coefficient
-
     return a pandas dataframe with following columns:
     feature_index: index in trainFeatures
     feature_name: variable name inside trainFeatures
@@ -45,22 +41,17 @@ def feature_importance(lrm_model,trainDF,trainFeatures,nonzero_only=True):
     std: standard deviation of the variables inside trainFeatures
     std_coef: standardized coefficient =coef*std
     feature_importance: absolute value of std
-    
     example:
     df=feature_importance(lrm_model=model.stages[3], trainDF=training_pred, trainFeatures='features',nonzero_only=False)
     df.head(1)
     |   | feature_index | feature_name  | coef | mean | std | std_coef  | feature_importance |
     |---|---------------|---------------|------|------|-----|-----------|--------------------|
     | 0 | 4             | text_vector_2 | 3.059| 0.50 | 0.57| 1.766666  |     1.766666       |
-
     """
     coef=extract_feature_name(trainDF,trainFeatures,stat=True)
     coef['coef']=lrm_model.coefficients.toArray()
-    #coef=coef.loc[coef.coef!=0,:].sort_values(by=['coef'])
-    #coef['coef']=[lrm_model.coefficients[int(idx)] for idx in coef.feature_index] #too slow
-    #get std for each feature
     coef["std_coef"]=coef["coef"]*coef["std"]
-    coef["feature_importance"]=coef.std_coef.abs() #2021_10_05 add feature_importance
+    coef["feature_importance"]=coef.std_coef.abs() 
     if nonzero_only:
         coef=coef.loc[coef.coef!=0,:]    
     coef.sort_values(by=["feature_importance"],ascending=False,inplace=True)
