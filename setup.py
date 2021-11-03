@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 name="spark_ml_utils"
-VERSION = '0.0.2' 
+VERSION = '0.0.3' 
 DESCRIPTION = '''Some spark ml utilities, for easy checking/modifying spark pipeline, extracting feature importance for spark logistic regression model'''
 with open("README.md", "r", encoding="utf-8") as fh:
     LONG_DESCRIPTION = fh.read()

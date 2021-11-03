@@ -38,13 +38,13 @@ def _getallstages_p(pstr):
         elif str(type(s))=="<class 'pyspark.ml.pipeline.PipelineModel'>":
             pstr2=f"{pstr}.getStages()[{i}]"
             df2=_getallstages_pm(pstr2)
-            df2.columns = ['estimator','estimator_name','inputcol','outputcol','other_parameters']
+            df2.columns = ['stage','object_name','inputcol','outputcol','other_parameters']
             output.append(df2) 
         else:
             tn=re.sub(r"^.*\.(\w+)\b.*",r"\1",str(type(s)))
             pstr2=f"{pstr}.getStages()[{i}]"
-            temp=pd.DataFrame([[pstr2,tn,None,None,None]],columns=['estimator','estimator_name','inputcol','outputcol','other_parameters'])
-            if temp.estimator_name.iloc[0]=="SQLTransformer":
+            temp=pd.DataFrame([[pstr2,tn,None,None,None]],columns=['stage','object_name','inputcol','outputcol','other_parameters'])
+            if temp.object_name.iloc[0]=="SQLTransformer":
                 st='"statement=\n'+re.sub('\t','     ',eval(pstr2).getStatement())+'"' 
                 if len(st)>=32767:
                     idx1=st.rfind('\n',0,10000)
@@ -52,7 +52,7 @@ def _getallstages_p(pstr):
                     newst=st[:idx1]+"\n\n..........\n"+st[idx2:]
                     st=newst.replace("statement=","TRUNCATED !!!\n\nstatement=")
                 temp["other_parameters"]=st
-            elif temp.estimator_name.iloc[0]=="RFormula": 
+            elif temp.object_name.iloc[0]=="RFormula": 
                 temp["outputcol"]=[value for key, value in eval(pstr2).extractParamMap().items() if key.name=='featuresCol']            
                 form="formular: "+[value for key, value in eval(pstr2).extractParamMap().items() if key.name=='formula'][0]
                 temp["other_parameters"]=f"number of inputCol in formula: {form.count('+')+1}"
@@ -86,7 +86,7 @@ def _getallstages_pm(pmstr):
         else:
             tn=re.sub(r"^.*\.(\w+)\b.*",r"\1",str(type(s)))
             pmstr2=f"{pmstr}.stages[{i}]"
-            temp=pd.DataFrame([[pmstr2,tn,None,None,None]],columns=['transformer','transformer_name','inputcol','outputcol','other_parameters'])
+            temp=pd.DataFrame([[pmstr2,tn,None,None,None]],columns=['stage','transformer_name','inputcol','outputcol','other_parameters'])
             if temp.transformer_name.iloc[0]=="SQLTransformer":
                 st='"statement=\n'+re.sub('\t','     ',eval(pmstr2).getStatement())+'"' 
                 if len(st)>=32767:
@@ -171,7 +171,7 @@ def _getCode(objstr,output_objstr=None,printout=True):
         else:
             als=_getallstages_p(objstr)
         for i in range(als.shape[0]):
-            tf=eval(als.loc[i,'estimator']) 
+            tf=eval(als.loc[i,'stage']) 
             als.loc[i,'imp_str'], als.loc[i,'stage_str']=_get_def_strs(tf)
         all_imp='from pyspark.ml import Pipeline\n'+'\n'.join(als.imp_str.unique())
         allstags_str= '\n\n,'.join('#'*40+'stage'+als.index.map(str)+'\n'+als.stage_str) 
@@ -225,7 +225,7 @@ def _pm_to_p(pmstr):
     """
     als=_getallstages_pm(pmstr)
     for i in range(als.shape[0]):
-        tf=eval(als.loc[i,'transformer']) 
+        tf=eval(als.loc[i,'stage']) 
         est=model_to_estimator(tf)
         als.loc[i,'p_stage']=est
     from pyspark.ml import Pipeline

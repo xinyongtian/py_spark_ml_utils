@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: spark-ml-utils
-Version: 0.0.2
+Version: 0.0.3
 Summary: Some spark ml utilities, for easy checking/modifying spark pipeline, extracting feature importance for spark logistic regression model
 Home-page: https://github.com/xinyongtian/py_spark_ml_utils
 Author: Xinyong Tian
